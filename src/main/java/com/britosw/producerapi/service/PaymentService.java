@@ -15,7 +15,7 @@ public class PaymentService {
 
     public void sendMachineToRabbit() {
         try {
-            var payment = Payment.builder().client("Bruno Brito").uc("21312").value(100.0).build();
+            Payment payment = Payment.builder().client("Bruno Brito").uc("21312").value(100.0).build();
             String json = new ObjectMapper().writeValueAsString(payment);
             rabbitTemplate.convertAndSend(PaymentAMQPConfig.EXCHANGE_NAME, "", json);
         } catch (JsonProcessingException e) {
