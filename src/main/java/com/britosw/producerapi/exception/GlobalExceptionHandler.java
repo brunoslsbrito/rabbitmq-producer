@@ -4,6 +4,7 @@ import com.britosw.producerapi.message.ApplicationMessage;
 import com.britosw.producerapi.message.Messages;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -64,7 +65,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, List<ApplicationMessage>> handleHttpMessageNotReadableException() {
+    public Map<String, List<ApplicationMessage>> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         return errors(ApplicationMessage.parse(Messages.MALFORMED_JSON_REQUEST));
     }
 

@@ -4,6 +4,7 @@ import com.britosw.producerapi.config.PaymentAMQPConfig;
 import com.britosw.producerapi.exception.ApplicationException;
 import com.britosw.producerapi.message.Messages;
 import com.britosw.producerapi.model.Payment;
+import com.britosw.producerapi.model.PaymentDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -15,10 +16,9 @@ public class PaymentService {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    public void sendMachineToRabbit() {
+    public void sendMachineToRabbit(PaymentDTO payload) {
         try {
-            var payment = Payment.builder().client("Bruno Brito").uc("21312").value(100.0).build();
-            var json = new ObjectMapper().writeValueAsString(payment);
+            var json = new ObjectMapper().writeValueAsString(payload);
             rabbitTemplate.convertAndSend(PaymentAMQPConfig.EXCHANGE_NAME, "", json);
         } catch (JsonProcessingException e) {
             throw new ApplicationException(String

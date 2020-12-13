@@ -2,22 +2,20 @@ package com.britosw.producerapi.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 @Data
 @SuperBuilder
-public class Payment {
-    private UUID uuid;
-    private Long id;
+@NoArgsConstructor
+@AllArgsConstructor
+public class PaymentDTO {
+    @NotNull
     private Double value;
+    @NotNull
     private String client;
+    @NotNull
     private String uc;
 }
